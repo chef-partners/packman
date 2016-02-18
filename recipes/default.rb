@@ -4,4 +4,4 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-# Install packer and all the dependencies
+include_recipe 'packman::_packer_install'

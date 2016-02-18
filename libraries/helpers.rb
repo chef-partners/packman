@@ -16,7 +16,7 @@ module PackmanCookbook
 
     def add_builder(name, options)
       run_state['packer_builders'] ||= []
-      run_state['packer_builders'] << { name => options }
+      run_state['packer_builders'] << options.merge('name' => name)
     end
 
     def add_provisioner
@@ -54,7 +54,8 @@ module PackmanCookbook
 
     def add_shell_provisioner(provisioner)
       if new_resource.inline
-        provisioner['inline'] = [new_resource.command]
+        # Use the name attribute as the command if it's not explicitly set
+        provisioner['inline'] = [new_resource.command || new_resource.destination]
         provisioner['inline_shebang'] = new_resource.inline_shebang if new_resource.inline_shebang
       else
         provisioner['script'] = render_template(new_resource.source, new_resource.variables)
@@ -66,13 +67,8 @@ module PackmanCookbook
     end
 
     def add_local_shell_provisioner(provisioner)
-      provisioner['command'] =
-        if new_resource.command
-          new_resource.command
-        else
-          # Use the name attribute as the command
-          new_resource.destination
-        end
+      # Use the name attribute as the command
+      provisioner['command'] = new_resource.command || new_resource.destination
       provisioner['execute_command'] = new_resource.execute_command if new_resource.execute_command
     end
 
@@ -97,7 +93,7 @@ module PackmanCookbook
       run_state['temp_files'] ||= []
       run_state['temp_files'] << template_file
 
-      file.path
+      template_file.path
     end
 
     def format_env_vars(vars)
@@ -118,6 +114,7 @@ module PackmanCookbook
 
       file template_file.path do
         content JSON.pretty_generate(template)
+        action :create
       end
 
       run_state['packer_template'] = template_file
@@ -139,9 +136,13 @@ module PackmanCookbook
     end
 
     def cleanup
-      run_state['temp_files'].each do |f|
-        f.unlink
-        f.close
+      ruby_block 'cleanup temp file' do
+        block do
+          run_state['temp_files'].each do |f|
+            f.unlink
+            f.close
+          end
+        end
       end
     end
 

@@ -19,7 +19,7 @@ require_relative './helpers'
 class Chef
   class Provider
     class PackerTemplate < Chef::Provider::LWRPBase
-      provides :packer_provisioner
+      provides :packer_template
 
       include PackmanCookbook::Helpers
 
