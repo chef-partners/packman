@@ -132,7 +132,9 @@ module PackmanCookbook
       command << "-only=#{new_resource.only.join(',')}" if new_resource.only
       command << run_state['packer_template'].path
 
-      execute command.join(' ')
+      execute command.join(' ') do
+        live_stream true
+      end
     end
 
     def cleanup
