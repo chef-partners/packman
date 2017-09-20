@@ -1,7 +1,7 @@
 default['packman']['checksums'] = {
-  '0.8.6' => '2f1ca794e51de831ace30792ab0886aca516bf6b407f6027e816ba7ca79703b5'
+  '1.1.0' => 'bd1eddfa114f7e6258ef3419613380297f1b4e438f5bae92f1177150519be934'
 }
-default['packman']['version'] = '0.8.6'
+default['packman']['version'] = '1.1.0'
 default['packman']['bin_dir'] = '/usr/local/bin'
 default['packman']['binary_path'] = ::File.join(node['packman']['bin_dir'], 'packer')
 
@@ -12,6 +12,8 @@ default['packman']['zipfile']['href'] =
 default['packman']['zipfile']['path'] =
   ::File.join(Chef::Config[:file_cache_path], node['packman']['zipfile']['name'])
 
-default['packman']['azure']['checksum'] = '226d728bff9385fd5e0c5ff06ff4b06976d51bd9ed4724fe018c6a44d0818b41'
-default['packman']['azure']['href'] = 'https://s3.amazonaws.com/packer-builder-azure/packer-builder-azure'
-default['packman']['azure']['binary_path'] = ::File.join(node['packman']['bin_dir'], 'packer-builder-azure')
+# WIP: we shouldn't be using the azure plugin because it's deprecated in favor of packer's azure-arm builder:
+# https://github.com/Azure/packer-azure
+# default['packman']['azure']['checksum'] = '226d728bff9385fd5e0c5ff06ff4b06976d51bd9ed4724fe018c6a44d0818b41'
+# default['packman']['azure']['href'] = 'https://s3.amazonaws.com/packer-builder-azure/packer-builder-azure'
+# default['packman']['azure']['binary_path'] = ::File.join(node['packman']['bin_dir'], 'packer-builder-azure')

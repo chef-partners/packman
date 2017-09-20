@@ -1,23 +1,23 @@
-packer_variable 'azure_publish_settings' do
-  value '{{env `AZURE_PUBLISH_SETTINGS`}}'
-
-  action :create
-end
+include_recipe "packman::default"
 
 packer_builder 'azure_test' do
   options(
     'name' => 'azure_test',
-    'type' => 'azure',
+    'type' => 'azure-arm',
     'ssh_username' => 'azure',
-    'publish_settings_path' => '{{user `azure_publish_settings`}}',
-    'subscription_name' => 'Example Subscription',
+    'capture_container_name' => 'vhds',
+    'capture_name_prefix' => 'application-directory',
+    'client_id' => '0831b578-8ab6-40b9-a581-9a880a94aab1',
+    'client_secret' => 'P@ssw0rd!',
+    'subscription_id' => '1C2B75C1-74A5-472A-A729-7F8CEFC477F9',
+    'resource_group_name' => 'myResourceGroup',
+    'image_publisher'=> 'Canonical',
+    'image_offer' => 'UbuntuServer',
+    'image_sku' => '14.04.5-LTS',
     'storage_account' => 'myimages',
-    'storage_account_container' => 'vhds',
     'os_type' => 'Linux',
-    'os_image_label' => 'Ubuntu Server 14.04 LTS',
     'location' => 'East US',
-    'instance_size' => 'Large',
-    'user_image_label' => 'Azure_Test_{{timestamp}}'
+    'vm_size' => 'Standard_A2'
   )
 
   action :create
