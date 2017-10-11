@@ -28,6 +28,7 @@ class Chef
       property :debug, kind_of: [TrueClass, FalseClass], default: false
       property :except, kind_of: Array
       property :only, kind_of: Array
+      property :validate_only, kind_of: [TrueClass, FalseClass], default: false
     end
   end
 end
