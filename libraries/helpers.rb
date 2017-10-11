@@ -124,13 +124,18 @@ module PackmanCookbook
 
     def run_packer
       # TODO: support for packer binary location
-      command = ['packer build']
-      command << '-debug' if new_resource.debug
-      command << '-machine-readable' if new_resource.machine_readable
-      command << "-parallel=#{new_resource.parallel}"
-      command << "-except=#{new_resource.except.join(',')}" if new_resource.except
-      command << "-only=#{new_resource.only.join(',')}" if new_resource.only
-      command << run_state['packer_template'].path
+      if new_resource.validate_only == true
+        command = ['packer validate']
+        command << run_state['packer_template'].path
+      else
+        command = ['packer build']
+        command << '-debug -on-error=abort' if new_resource.debug
+        command << '-machine-readable' if new_resource.machine_readable
+        command << "-parallel=#{new_resource.parallel}"
+        command << "-except=#{new_resource.except.join(',')}" if new_resource.except
+        command << "-only=#{new_resource.only.join(',')}" if new_resource.only
+        command << run_state['packer_template'].path
+      end
 
       execute command.join(' ') do
         live_stream true

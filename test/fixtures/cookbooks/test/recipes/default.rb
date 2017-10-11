@@ -82,5 +82,6 @@ packer_provisioner 'echo "errry day"' do
 end
 
 packer_template 'packer' do
-  action :create
+  action        :create
+  validate_only true
 end
