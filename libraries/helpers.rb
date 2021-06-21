@@ -74,7 +74,7 @@ module PackmanCookbook
 
     def validate_type!
       return if %w(shell local-shell file).include?(new_resource.type)
-      Chef::Application.fatal!("Invalid Packman type: '#{new_resource.type}' declared")
+      raise("Invalid Packman type: '#{new_resource.type}' declared")
     end
 
     def render_template(template_source, template_variables)
@@ -126,7 +126,6 @@ module PackmanCookbook
       # TODO: support for packer binary location
       if new_resource.validate_only == true
         command = ['packer validate']
-        command << run_state['packer_template'].path
       else
         command = ['packer build']
         command << '-debug -on-error=abort' if new_resource.debug
@@ -134,8 +133,8 @@ module PackmanCookbook
         command << "-parallel=#{new_resource.parallel}"
         command << "-except=#{new_resource.except.join(',')}" if new_resource.except
         command << "-only=#{new_resource.only.join(',')}" if new_resource.only
-        command << run_state['packer_template'].path
       end
+      command << run_state['packer_template'].path
 
       execute command.join(' ') do
         live_stream true

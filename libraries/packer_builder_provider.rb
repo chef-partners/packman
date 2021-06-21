@@ -1,6 +1,6 @@
 #
 # Author:: Partner Engineering <partnereng@chef.io>
-# Copyright (c) 2016, Chef Software, Inc. <legal@chef.io>
+# Copyright:: (c) 2016, Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,12 +22,6 @@ class Chef
       provides :packer_builder
 
       include PackmanCookbook::Helpers
-
-      use_inline_resources
-
-      def whyrun_supported?
-        true
-      end
 
       action :create do
         add_builder(new_resource.name, new_resource.options)
