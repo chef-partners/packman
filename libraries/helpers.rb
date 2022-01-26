@@ -74,7 +74,7 @@ module PackmanCookbook
 
     def validate_type!
       return if %w(shell local-shell file).include?(new_resource.type)
-      Chef::Application.fatal!("Invalid Packman type: '#{new_resource.type}' declared")
+      raise("Invalid Packman type: '#{new_resource.type}' declared")
     end
 
     def render_template(template_source, template_variables)

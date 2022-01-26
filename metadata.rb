@@ -1,7 +1,6 @@
 name 'packman'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
-license 'all_rights'
+license 'all rights reserved'
 description 'Installs/Configures packman'
-long_description 'Installs/Configures packman'
 version '0.2.0'
