@@ -1,6 +1,6 @@
 #
 # Author:: Partner Engineering <partnereng@chef.io>
-# Copyright (c) 2016, Chef Software, Inc. <legal@chef.io>
+# Copyright:: (c) 2016, Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ class Chef
   class Resource
     class PackerPostProcessor < Chef::Resource::LWRPBase
       resource_name :packer_post_processor
+      provides :packer_post_processor
 
       actions :create
       default_action :create

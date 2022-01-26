@@ -1,5 +1,5 @@
 default['packman']['checksums'] = {
-  '1.1.0' => 'bd1eddfa114f7e6258ef3419613380297f1b4e438f5bae92f1177150519be934'
+  '1.1.0' => 'bd1eddfa114f7e6258ef3419613380297f1b4e438f5bae92f1177150519be934',
 }
 default['packman']['version'] = '1.1.0'
 default['packman']['bin_dir'] = '/usr/local/bin'

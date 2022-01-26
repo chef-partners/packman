@@ -1,4 +1,4 @@
-include_recipe "packman::default"
+include_recipe 'packman::default'
 
 packer_builder 'azure_test' do
   options(
@@ -11,7 +11,7 @@ packer_builder 'azure_test' do
     'client_secret' => 'P@ssw0rd!',
     'subscription_id' => '1C2B75C1-74A5-472A-A729-7F8CEFC477F9',
     'resource_group_name' => 'myResourceGroup',
-    'image_publisher'=> 'Canonical',
+    'image_publisher' => 'Canonical',
     'image_offer' => 'UbuntuServer',
     'image_sku' => '14.04.5-LTS',
     'storage_account' => 'myimages',
